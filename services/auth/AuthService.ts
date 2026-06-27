@@ -227,6 +227,14 @@ export class AuthService {
     return response;
   }
 
+  async updateMe(data: { first_name?: string; last_name?: string }) {
+    const updated = await this.authRepository.updateMe(data);
+    if (updated) {
+      this._saveMeToLocalStorage(updated);
+    }
+    return updated;
+  }
+
   cleanUp() {
     this._authStateObservable.complete();
     this._meObservable.complete();
