@@ -31,4 +31,8 @@ export class AuthRepository {
   async getMe() {
     return this.apiClient.get<AuthUser>("/me/");
   }
+
+  async updateMe(data: { first_name?: string; last_name?: string }) {
+    return this.apiClient.patch<AuthUser, { first_name?: string; last_name?: string }>("/me/", data);
+  }
 }
