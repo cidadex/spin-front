@@ -1,0 +1,9 @@
+node_modules
+.next
+.env*.local
+*.log
+.git
+.gitignore
+jest.config.ts
+jest.setup.ts
+README.md

@@ -1,0 +1,36 @@
+kind = "web"
+previewPath = "/"
+title = "Sistema Jurídico"
+version = "1.0.0"
+id = "artifacts/juridico"
+router = "path"
+
+[[services]]
+name = "web"
+paths = ["/"]
+localPort = 3000
+
+[services.development]
+run = "pnpm --filter @workspace/juridico run dev"
+
+[services.production]
+
+[services.production.build]
+args = ["pnpm", "--filter", "@workspace/juridico", "run", "build"]
+
+[services.production.build.env]
+NODE_ENV = "production"
+NEXT_PUBLIC_API_URL = "/api"
+
+[services.production.run]
+args = ["sh", "-c", "cd /home/runner/workspace/artifacts/juridico && node_modules/.bin/next start -p $PORT"]
+
+[services.production.run.env]
+NODE_ENV = "production"
+
+[services.production.health.startup]
+path = "/"
+
+[services.env]
+PORT = "3000"
+BASE_PATH = "/"

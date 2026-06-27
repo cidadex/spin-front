@@ -1,0 +1,799 @@
+{
+  "apenadosPage": {
+    "buttons": {
+      "registerFirst": "Cadastrar meu Primeiro Apenado",
+      "registerNew": "Cadastrar Novo Apenado"
+    },
+    "card": {
+      "cumprimentoAtual": "Cumprimento atual",
+      "penaTotal": "Pena Total",
+      "regimeCumprimento": "regime cumprimento",
+      "regimes": {
+        "closed": "Fechado",
+        "open": "Aberto",
+        "semiOpen": "Semiaberto",
+        "unknown": "Desconhecido"
+      },
+      "registroGeral": "Registro Geral",
+      "reincidente": "Reincidente",
+      "semCalculo": "Sem cálculo",
+      "startDate": "Início: {date}",
+      "status": {
+        "eligible": "Elegível",
+        "noResult": "Sem resultado",
+        "notEligible": "Inelegível"
+      },
+      "timeRemaining": "Faltam {remaining}",
+      "totais": "totais",
+      "ultimoCalculo": "Último Cálculo",
+      "verDetalhesCrimes": "Ver Detalhes dos Crimes ({count})",
+      "viewProfile": "Ver Perfil"
+    },
+    "crimesModal": {
+      "erroAoCarregarDetalhes": "Ocorreu um erro ao carregar os detalhes do apenado. Por favor, tente novamente mais tarde.",
+      "tabCrimes": "Detalhes do Crime",
+      "tabMarcosTemporais": "Marco Temporal",
+      "title": "Detalhes do Apenado"
+    },
+    "crimesTab": {
+      "acaoPenal": "Ação Penal",
+      "acaoPenalPadrao": "Pública Incondicionada",
+      "acaoPenalSeeu": "{tipo} (processo criminal)",
+      "crimeDestaqueHint": "Crime atual destacado em azul — {count, plural, one {# crime no total} other {# crimes no total}}",
+      "descricaoLegalTitulo": "Descrição Legal: {crime} ({norma})",
+      "distribuicaoPenaTotal": "Distribuição da Pena Total ({totalPena})",
+      "indultoImpeditivoNao": "No decreto vigente, este crime não foi classificado como impeditivo absoluto de indulto.",
+      "indultoImpeditivoSim": "Atenção: este crime foi tratado como impeditivo nas regras do decreto aplicado ao cálculo.",
+      "indultoTexto": "A análise de elegibilidade ao indulto considera a natureza do delito, circunstâncias do caso e requisitos objetivos e subjetivos previstos no decreto aplicável. Consulte o cálculo vinculado para o resultado consolidado.",
+      "indultoTitulo": "Impacto no Cálculo de Indulto",
+      "qualificadoras": {
+        "organizacaoCriminosa": "Comando de organização criminosa",
+        "reincidenteComum": "Reincidência comum",
+        "reincidenteEspecifico": "Reincidência específica",
+        "resultadoMorte": "Resultado morte",
+        "violenciaGraveAmeaca": "Violência ou grave ameaça"
+      },
+      "qualificadorasTitulo": "Qualificadoras e Agravantes",
+      "semDescricaoLegal": "Não há texto de descrição legal registrado para este crime no cadastro.",
+      "semQualificadoras": "Nenhuma qualificadora ou agravante registrada a partir dos dados estruturados.",
+      "sincronizar": "Sincronizar",
+      "naturezaNaoInformada": "Não informada nos cadastros",
+      "info": {
+        "dataCometimento": "Data do cometimento",
+        "dataSentenca": "Data da sentença",
+        "dataTransito": "Trânsito em julgado",
+        "juizoVara": "Juízo / vara",
+        "leiNorma": "Lei / norma",
+        "natureza": "Natureza"
+      },
+      "ultimaAtualizacao": "Última atualização: {date}"
+    },
+    "emptyState": {
+      "description": "Clique no botão abaixo para adicionar um Apenado e realizar seu primeiro cálculo de Indulto",
+      "title": "Você ainda não possui Apenados"
+    },
+    "filters": {
+      "all": "Todos ({count})",
+      "closed": "Fechado ({count})",
+      "open": "Aberto ({count})",
+      "prd": "PRD ({count})",
+      "semiOpen": "Semiaberto ({count})",
+      "sursis": "Sursis ({count})",
+      "withAnkleMonitor": "Tornozeleira ({count})",
+      "withConditionalRelease": "Livr. Cond. ({count})"
+    },
+    "marcosTemporaisTab": {
+      "dias": "dias",
+      "emCumprimento": "Em cumprimento",
+      "emLiberdade": "Em Liberdade",
+      "evento": "(evento {number})",
+      "inicioPrisao": "Início/Prisão",
+      "interrupcaoLiberdade": "Interrupção/Liberdade",
+      "linhaDeTempo": "Linha do Tempo de Cumprimento da Pena",
+      "passeMouse": "Passe o mouse em cada etapa para ver mais detalhes:",
+      "percentualDaPena": "{percentage}% da pena",
+      "totalEmCumprimento": "Total em Cumprimento",
+      "totalEmLiberdade": "Total em Liberdade"
+    },
+    "searchPlaceholder": "Procure por nome ou ID",
+    "stats": {
+      "menCount": "{count, plural, =0 {# Homens} one {# Homem} other {# Homens}}",
+      "pendingCount": "{count, plural, =0 {# pendências} one {# pendência} other {# pendências}}",
+      "registeredInmates": "Apenados cadastrados",
+      "registrationIssues": "Cadastrais",
+      "total": "Totais",
+      "womenCount": "{count, plural, =0 {# Mulheres} one {# Mulher} other {# Mulheres}}"
+    },
+    "subtitle": "Adicione e gerencie seus Apenados",
+    "title": "Cadastro e detalhes de Apenado",
+    "titlePlural": "Apenados",
+    "loadMore": "Carregar mais",
+    "loadMoreError": "Não foi possível carregar mais apenados. Tente novamente."
+  },
+  "calculo": {
+    "dadosPessoais": {
+      "autoFilledAlert": {
+        "description": "Alguns campos foram preenchidos automaticamente com base no arquivo enviado. Por favor, revise-os para garantir que todas as informações estejam corretas."
+      },
+      "cpf": "CPF",
+      "dataNascimento": "Data de Nascimento",
+      "nome": "Nome Completo",
+      "nomeMae": "Nome da Mãe",
+      "nomeMaePlaceholder": "Digitar Nome da Mãe",
+      "numeroUnico": "Número do processo",
+      "rg": "RG",
+      "rgPlaceholder": "Digitar RG",
+      "stepDescription": "Finalize esta etapa",
+      "stepTitle": "Dados Cadastrais",
+      "subtitle": "Verifique e confirme os dados cadastrais extraídos do documento para prosseguir ao cálculo",
+      "title": "Confirmar Dados Cadastrais"
+    },
+    "dadosProcessuais": {
+      "decreto": "Decreto",
+      "decretoPlaceholder": "Selecione um decreto",
+      "diasCumpridosManuais": "Dias cumpridos manuais",
+      "diasCumpridosManuaisDescription": "Quantidade de dias já cumpridos informada manualmente (se não usar cálculo temporal)",
+      "distribuirCumpridoNasPenas": "Distribuir cumprido nas penas",
+      "distribuirCumpridoNasPenasDescription": "Se desmarcado, o saldo de cumprido será calculado mas não será distribuído nas penas (útil para apenas visualizar o saldo disponível)",
+      "distribuirCumpridoNasPenasSwitchLabel": "Distribuir",
+      "removeCondenacao": "Remover crime",
+      "subtitle": "Verifique e confirme os dados extraídos: ",
+      "subtitleDetails": "{crimes} (Pena total {penaTotal})",
+      "execucao": {
+        "title": "Dados da execução",
+        "regime": "Regime",
+        "regimePlaceholder": "Selecione",
+        "regimes": {
+          "FECHADO": "Fechado",
+          "SEMIABERTO": "Semiaberto",
+          "ABERTO": "Aberto"
+        },
+        "totalDiasRemidos": "Total de dias remidos"
+      },
+      "crimes": {
+        "title": "Dados de cada processo / crime"
+      },
+      "crime": {
+        "numeroCondenacao": "Número do processo (CNJ)",
+        "diploma": "Diploma legal",
+        "dispositivo": "Dispositivo (artigo / parágrafo / inciso)",
+        "dataInfracao": "Data da infração",
+        "dataSentenca": "Data da sentença",
+        "regimeInicial": "Regime inicial (sentença)",
+        "penaAnos": "Anos",
+        "penaMeses": "Meses",
+        "penaDias": "Dias",
+        "comViolenciaOuGraveAmeaca": "Violência ou grave ameaça",
+        "reincidenteComum": "Reincidente comum",
+        "comandoOrganizacaoCriminosa": "Comando de organização criminosa",
+        "hediondo": "Hediondo (Linha do Tempo)",
+        "hediondoBadge": "Hediondo",
+        "hediondoTooltip": "Marcado conforme coluna 'Hediondo' da Linha do Tempo do SEEU. Pode ser ajustado manualmente.",
+        "hediondoOptions": {
+          "unknown": "Não verificado",
+          "yes": "Sim",
+          "no": "Não"
+        }
+      },
+      "successPage": {
+        "analysisStart": {
+          "confirmedDataTitle": "Dados confirmados",
+          "confirmedItems": {
+            "personalData": "Identificação (Bloco A)",
+            "prisonRegime": "Dados da execução (Bloco B)",
+            "prisonRegistration": "Processos e crimes (Bloco C)"
+          },
+          "description": "Os dados confirmados acima serão utilizados como entrada. Após o início, parte dos dados fica congelada para preservar a memória de cálculo.",
+          "title": "Confirmação dos dados extraídos"
+        },
+        "estimatedTime": "Tempo estimado: 3-5 minutos",
+        "saveAndContinueLater": "Salvar e continuar depois",
+        "startAnalysisButton": "Confirmar dados e iniciar",
+        "startAnalysisError": "Ocorreu um erro ao iniciar. Por favor, tente novamente.",
+        "subtitle": "Verificação dos dados extraídos concluída",
+        "title": "Dados conferidos com sucesso"
+      },
+      "title": "Conferência dos dados extraídos"
+    },
+    "novoCalculo": {
+      "cancel": "Cancelar Cadastro",
+      "cancelCalculoDialog": {
+        "description": "O status será alterado para \"Sem Resultado\"",
+        "goBackToCalculo": "Não, voltar para Cálculos",
+        "title": "Você tem certeza que deseja cancelar este cálculo?",
+        "yesCancel": "Sim, cancelar Cálculo",
+        "successToastFallback": "Cálculo cancelado com sucesso.",
+        "cancelRequestError": "Não foi possível cancelar o cálculo. Tente novamente.",
+        "closeToast": "Fechar notificação"
+      },
+      "dadosCadastrais": "Dados Cadastrais",
+      "emptyState": {
+        "description": "Valide informações e responda as perguntas",
+        "title": "Nenhuma informação ainda"
+      },
+      "finishAndCalculate": "Finalizar e Calcular",
+      "metadataSectionTitle": "Metadados do Cálculo",
+      "progressIndicator": {
+        "registrationProgress": "Progresso:"
+      },
+      "refreshButtonLabel": "Recalcular",
+      "refreshErrorMessage": "Ocorreu um erro ao tentar recalcular. Por favor, tente novamente mais tarde.",
+      "sidebar": {
+        "progressAnalysis": {
+          "subtitle": "Finalize para chegar ao cálculo:",
+          "title": "Progresso da Análise"
+        },
+        "strategicAnalysis": {
+          "subtitle": "Decretos mais vantajosos:",
+          "title": "Análise Estratégica"
+        }
+      }
+    },
+    "questionarioDinamico": {
+      "aiAutoFilledAlert": "Alguns campos podem ter sido preenchidos automaticamente por Inteligencia Artificial (IA), verifique antes de prosseguir.",
+      "answerQuestionsTooltip": "Responda perguntas para qualificar o contexto técnico de cálculo",
+      "calculateEligibility": "Calcular Eligibilidade",
+      "dateInput": {
+        "label": "Insira a data",
+        "placeholder": "Inserir data"
+      },
+      "eachResponseEvaluated": "Cada resposta é avaliada para determinar a próxima etapa da análise.",
+      "intelligentAnalysisInProgress": "Análise Inteligente em Andamento |",
+      "stepDescription": "Aguardando Início",
+      "stepTitle": "Questionário Dinâmico",
+      "successPage": {
+        "cardDescription": "A partir de agora, cada resposta será avaliada pelo nosso sistema para calcular a elegibilidade aos indultos disponíveis.",
+        "cardTitle": "Multicálculo de Indulto e Comutações",
+        "confirmedDataItems": {
+          "personalData": "Nome, CPF e data de nascimento",
+          "prisonData": "Matrícula e unidade prisional",
+          "prisonRegime": "Regime prisional atual"
+        },
+        "confirmedDataTitle": "DADOS CONFIRMADOS",
+        "startAnalysisButton": "Calcular Elegibilidade Agora",
+        "subtitle": "Prossiga para a etapa de realização de Cálculo",
+        "title": "Dados suficientes Coletados"
+      }
+    },
+    "realizarCalculo": {
+      "stepDescription": "Aguardando Análise",
+      "stepTitle": "Realizar Cálculo"
+    },
+    "relatorioPage": {
+      "completeButton": "Concluir cálculo",
+      "completeSuccess": "Cálculo concluído com sucesso.",
+      "completeError": "Não foi possível concluir o cálculo. Tente novamente.",
+      "missingCalculationError": "Não foi possível identificar o cálculo atual."
+    }
+  },
+  "calculosPage": {
+    "buttons": {
+      "registerFirst": "Realizar Meu Primeiro Cálculo",
+      "registerNew": "Realizar Novo Cálculo"
+    },
+    "emptyState": {
+      "description": "Clique no botão abaixo para adicionar um Apenado e realizar seu primeiro cálculo de Indulto",
+      "title": "Você ainda não possui Cálculos"
+    },
+    "filters": {
+      "all": "Todos ({count})",
+      "canceled": "Cancelados ({count})",
+      "completed": "Concluídos ({count})",
+      "open": "Em Aberto ({count})"
+    },
+    "filtersDate": {
+      "all": "Todos",
+      "label": "Filtrar por data",
+      "last6Months": "Últimos 6 meses",
+      "last7Days": "Últimos 7 dias",
+      "last12Months": "Últimos 12 meses",
+      "last30Days": "Últimos 30 dias"
+    },
+    "myCalculations": "Meus Cálculos",
+    "relatorio": {
+      "analiseElegibilidade": {
+        "crimeImpeditivo": "Crime Impeditivo:",
+        "gatilhos": {
+          "naoCumpriuPedagio": "Não cumprimento do período de pedágio para progressão de regime",
+          "todosCrimesImpeditivos": "Todos os crimes cometidos são considerados impeditivos para concessão de indulto"
+        },
+        "gatilhosExclusaoAbsoluta": "Gatilhos de Exclusão Absoluta:",
+        "percentualCumprido": "{percentual} (Requisito: > {percentualRequerido})",
+        "percentualCumpridoLabel": "Percentual Cumprido",
+        "percentualNaoCumprido": "{percentual} (Requisito: > {percentualRequerido})",
+        "title": "4. Análise de elegibilidade"
+      },
+      "calculo": {
+        "condenacaoNumero": "Condenação {index}",
+        "idadeAnos": "{idade} {idade, plural, one {ano} other {anos}}",
+        "fields": {
+          "cpf": "CPF:",
+          "crime": "Crime:",
+          "dataDoFato": "Data do Fato:",
+          "dataInicioExecucao": "Data do Início da Execução:",
+          "dataInicioPena": "Data de Início da Pena:",
+          "dataNascimento": "Data de Nascimento:",
+          "dataReferenciaDecreto": "Data de Referência (Decreto):",
+          "idadeNaDataCorte": "Idade na Data de Corte ({dataCorte}):",
+          "nome": "Nome:",
+          "penaTotalUnificada": "Pena total Unificada:",
+          "percentualCumprido": "Percentual Cumprido:",
+          "processos": "Processos:",
+          "regimeAtualNoDecreto": "Regime Atual (na data do decreto):",
+          "regimeInicial": "Regime Inicial:",
+          "tempoCorrido": "Tempo Corrido",
+          "tempoPenaCumprida": "Tempo de Pena Cumprida:",
+          "tempoTotalCumprido": "Tempo Total Cumprido:"
+        },
+        "generatedAt": "Gerado em: {date}",
+        "observacoes": {
+          "baseadoNoDecreto": "Todos os cálculos foram realizados com base no {decreto}",
+          "deferimento": "O deferimento do benefício está sujeito à análise judicial",
+          "generated": "Este relatório foi gerado automaticamente pelo sistema SPIN",
+          "recomendacao": "Recomenda-se a juntada de documentos comprobatórios (certidões, atestados, etc.)",
+          "title": "Observações importantes"
+        },
+        "penaLabel": "Pena:",
+        "processosExcluidos": {
+          "title": "Processos não computados",
+          "message": "O processo {numero} teve sentença em {dataSentenca}, posterior à data de corte do {decretoNome} ({dataCorte}). Esse processo não foi computado neste cálculo. O indulto, se concedido, alcançará apenas as penas dos demais processos da execução."
+        },
+        "sections": {
+          "calculoTempoCumprido": "3. Cálculo de tempo cumprido",
+          "dadosCondenacoes": "2. Dados das condenações em execução",
+          "identificacaoSentenciado": "1. Identificação do sentenciado",
+          "resumoExecucaoUnificada": "Resumo da Execução Unificada"
+        },
+        "title": "Relatório de cálculo de indulto"
+      },
+      "resultadoFinal": {
+        "elegivel": "Elegível para indulto",
+        "naoElegivel": "Não elegível para indulto",
+        "title": "5. Resultado final"
+      },
+      "fundamentacao": {
+        "title": "6. Fundamentação da decisão",
+        "subtitle": "Cada conclusão abaixo indica o motivo específico e a fonte de onde o dado foi obtido.",
+        "conclusaoLabel": "Conclusão:",
+        "fonteLabel": "Fonte",
+        "fundamentoLabel": "Fundamento legal:",
+        "resultado": {
+          "atendido": "Atendido",
+          "naoAtendido": "Não atendido",
+          "pendente": "Pendente",
+          "naoAplicavel": "Não aplicável"
+        },
+        "origem": {
+          "seeu": "Relatório SEEU",
+          "projudi": "Linha do Tempo (PROJUDI)",
+          "baseCrimes": "Base de categorização de crimes",
+          "decreto": "Regra do decreto",
+          "usuario": "Informação do usuário",
+          "calculo": "Cálculo do motor"
+        }
+      }
+    },
+    "stats": {
+      "eligibleForCommutation": "Elegíveis à Comutação",
+      "eligibleForPardon": "Elegíveis à Indulto",
+      "notEligible": "Não elegíveis à Redução",
+      "pendingCompletion": "Pendentes de conclusão"
+    },
+    "statsSummaryError": "Erro ao carregar resumo dos cálculos. Por favor, tente novamente mais tarde.",
+    "subtitle": "Visualize e gerencie todos os cálculos realizados",
+    "table": {
+      "actions": {
+        "cancelCalculation": "Cancelar Cálculo",
+        "performNewCalculation": "Realizar Novo Cálculo",
+        "resumeCalculation": "Retomar Cálculo",
+        "resumeCalculationError": "Erro ao retomar cálculo. Por favor, tente novamente.",
+        "performNewCalculationModal": {
+          "title": "Realizar novo cálculo para Apenado?",
+          "description": "Você será redirecionado para a página de Cálculo",
+          "cancel": "Não, voltar para Cálculos",
+          "confirm": "Sim, ir para Cálculo"
+        },
+        "viewPetition": "Ver Petição",
+        "viewReport": "Ver Relatório"
+      },
+      "headers": {
+        "actions": "Ações",
+        "calculationDate": "Data do cálculo",
+        "inmate": "Apenado",
+        "process": "Processo",
+        "result": "Resultado",
+        "status": "Status"
+      },
+      "loadingOtherCalculations": "Carregando outros cálculos...",
+      "petitionModal": {
+        "download": "Download",
+        "downloadError": "Ocorreu um erro ao tentar baixar a petição. Por favor, tente novamente mais tarde.",
+        "error": "Ocorreu um erro ao carregar a minuta da petição. Por favor, tente novamente mais tarde.",
+        "title": "Minuta de Petição - Pedido de Indulto",
+        "document": {
+          "judgeHeading": "EXCELENTÍSSIMO SENHOR DOUTOR JUIZ DE DIREITO DA VARA DE EXECUÇÕES PENAIS DA COMARCA DE {comarca}",
+          "comarcaPlaceholder": "[CIDADE/UF]",
+          "comarcaEstadoOnly": "ESTADO DE {estado}",
+          "processLine": "Processo nº {numero}",
+          "intro": "O sentenciado {nome}, atualmente em {regime}, vem respeitosamente à presença de Vossa Excelência requerer a concessão do benefício de indulto, nos termos do {decreto}, com fulcro nos motivos de fato e de direito a seguir expostos.",
+          "section1Title": "I – DOS FATOS",
+          "section1Lead": "O requerente cumpre pena privativa de liberdade no montante de {penaTotal} (considerando as condenações em execução), sendo {penaPermissivos} atribuíveis a crimes não impeditivos. Encontra-se recolhido há {tempoCumprido} dias de cumprimento efetivo, com redução de pena pelo trabalho e estudo no total de {reducao} dias, conforme demonstrativo dos crimes abaixo.",
+          "section1Saidas": "Registra-se ainda a concessão de {count, plural, one {# saída temporária} other {# saídas temporárias}} nos autos.",
+          "section2Title": "II – DO DIREITO",
+          "section2Lead": "O {decreto}, com data de referência em {dataReferencia}, estabelece requisitos objetivos e subjetivos para a concessão do indulto. A hipótese dos autos enquadra-se no {artigo}, conforme demonstrado a seguir.",
+          "bulletPrimario": "O sentenciado é {condicao} nos termos da legislação penal aplicável.",
+          "bulletRegime": "Encontra-se em {regime} na data de referência do decreto.",
+          "bulletPercentual": "Percentual cumprido da pena: {percentual}% (fração declarada: {fracao}; pedágio de progressão: {pedagio}).",
+          "bulletImpeditivosNao": "Não há crimes classificados como impeditivos absolutos para a concessão do indulto dentre os fatos em execução.",
+          "bulletImpeditivosSim": "Há crimes apontados como impeditivos no decreto; a análise meritória caberá a Vossa Excelência.",
+          "bulletBoaConduta": "Possui certidão ou informação de boa conduta carcerária compatível com o requisito subjetivo do decreto.",
+          "beneficiosTitle": "Benefícios e reduções aplicáveis identificados no cálculo",
+          "beneficioItem": "{nome} — redução de {dias} dias",
+          "section3Title": "III – DOS PEDIDOS",
+          "request1": "Seja deferido o pedido de indulto, extinguindo-se a punibilidade ou reduzindo-se a pena na extensão prevista no decreto aplicável.",
+          "request2": "Subsidiariamente, seja determinada a expedição de ofícios e certidões necessários à comprovação dos requisitos.",
+          "request3": "Sejam juntados aos autos os documentos comprobatórios já indicados nesta minuta e os que Vossa Excelência entender pertinentes.",
+          "request4": "Seja concedida a assistência judiciária gratuita, se o caso, e deferido o pedido nos termos da lei.",
+          "request5": "Protesta provar o alegado por todos os meios de prova em direito admitidos.",
+          "closing": "Termos em que, pede deferimento.",
+          "localDataComCidade": "{cidade}, {data}",
+          "localDataComEstado": "{estado}, {data}",
+          "localDataGenerico": "{data}",
+          "regimeAtual": {
+            "FECHADO": "regime fechado",
+            "SEMIABERTO": "regime semiaberto",
+            "ABERTO": "regime aberto"
+          }
+        }
+      },
+      "reportModal": {
+        "error": "Ocorreu um erro ao carregar o relatório do cálculo. Por favor, tente novamente mais tarde.",
+        "errorTitle": "Erro ao Carregar Relatório",
+        "title": "Relatório de Cálculo",
+        "unavailableDescription": "Este cálculo ainda não possui relatório gerado ou os dados não estão disponíveis. Abra o cálculo para concluí-lo ou gere o relatório novamente.",
+        "unavailableTitle": "Relatório indisponível"
+      },
+      "resultLabels": {
+        "commutable": "Elegível a Comutação",
+        "noReduction": "Inelegível",
+        "noResult": "Sem resultado",
+        "pardonable": "Elegível a Indulto",
+        "pendingInfo": "Pendente conclusão"
+      },
+      "statusLabels": {
+        "canceled": "Cancelado",
+        "completed": "Concluído",
+        "inProgress": "Em aberto",
+        "noResult": "Sem resultado"
+      }
+    },
+    "title": "Cálculos de Indulto e Comutação"
+  },
+  "common": {
+    "age": "Idade",
+    "agePlaceholder": "Digite sua idade",
+    "apenadosCount": "{count, plural, =0 {# Apenados} one {# Apenado} other {# Apenados}}",
+    "appDescription": "A primeira plataforma otimizada de multicálculo de Indulto: intuitiva, rápida e com respostas jurídicas em menos de 5 minutos.",
+    "appFooterText": "© {year} SPIN Legal. Todos os direitos reservados.",
+    "appSubtitle": "Justiça no tempo certo, calculada com precisão.",
+    "areaAtuacao": "Área de Atuação",
+    "autoFilled": "Preenchido automaticamente",
+    "back": "Voltar",
+    "bairro": "Bairro",
+    "bairroPlaceholder": "Digite o bairro",
+    "betaDescription": "Tecnologia disruptiva",
+    "betaLabel": "Beta",
+    "calculationsCount": "{count, plural, =0 {# cálculos} one {# cálculo} other {# cálculos}}",
+    "cep": "CEP",
+    "cepPlaceholder": "00000-000",
+    "complemento": "Complemento",
+    "complementoPlaceholder": "Apto, bloco, etc.",
+    "crimesCount": "{count, plural, =0 {# crimes} one {# crime} other {# crimes}}",
+    "duration": {
+      "days": "{count, plural, =0 {# dias} one {# dia} other {# dias}}",
+      "months": "{count, plural, =0 {# meses} one {# mês} other {# meses}}",
+      "years": "{count, plural, =0 {# anos} one {# ano} other {# anos}}"
+    },
+    "email": "Email",
+    "errors": {
+      "errorLoadingData": "Erro ao carregar dados.",
+      "errorSubmittingData": "Erro ao enviar dados. Por favor, tente novamente.",
+      "validationError": "Por favor, corrija os erros no formulário antes de enviar."
+    },
+    "estado": "Estado",
+    "features": {
+      "calculations": {
+        "description": "Parametrizações de cálculo",
+        "label": "12mi"
+      },
+      "experts": {
+        "description": "Experiência em Indultos",
+        "label": "Especialistas"
+      },
+      "students": {
+        "description": "Já utilizam as técnicas",
+        "label": "837 alunos"
+      }
+    },
+    "fullName": "Nome Completo",
+    "fullNamePlaceholder": "Digite seu nome completo",
+    "next": "Próximo",
+    "no": "Não",
+    "none": "Nenhum",
+    "or": "ou",
+    "password": "Senha",
+    "rua": "Rua",
+    "ruaPlaceholder": "Digite o nome da rua",
+    "selectAreaAtuacaoPlaceholder": "Selecione uma área de atuação",
+    "selectEstadoPlaceholder": "Selecione um estado",
+    "support": "Suporte",
+    "validation": {
+      "email": {
+        "invalid": "Por favor, insira um endereço de email válido."
+      },
+      "invalidAge": "Por favor, insira uma idade válida.",
+      "invalidCep": "Por favor, insira um CEP válido.",
+      "invalidCpf": "Por favor, insira um CPF válido.",
+      "invalidForm": "O formulário contém erros. Por favor, corrija-os antes de enviar.",
+      "invalidYears": "Por favor, insira um número válido de anos.",
+      "required": "Este campo é obrigatório."
+    },
+    "yearsOfExperience": "Anos de Experiência",
+    "yearsOfExperiencePlaceholder": "Digite os anos de experiência",
+    "yes": "Sim"
+  },
+  "createAccountPage": {
+    "alreadyHaveAccountText": "Já tem uma conta?",
+    "loginHereButton": "Entre aqui",
+    "subtitle": "Preencha os dados abaixo para criar sua conta",
+    "title": "Criar Nova Conta"
+  },
+  "duracaoInput": {
+    "anos": "Anos",
+    "dias": "Dias",
+    "meses": "Meses"
+  },
+  "fileInput": {
+    "dropzoneIsDragActivePrompt": "Solte os arquivos aqui...",
+    "dropzonePrompt": "Arraste e solte aqui",
+    "removeAriaLabel": "Remover {fileName}",
+    "selectFilesButton": "ou clique para selecionar"
+  },
+  "homePage": {
+    "controlPanel": "Painel de Controle:",
+    "mySpin": {
+      "cards": {
+        "identifiedPenaltyTime": {
+          "subtitle": "Tempo de pena indevida identificado",
+          "value": "{years, plural, =0 {# anos} one {# ano} other {# anos}} {months, plural, =0 {# meses} one {# mês} other {# meses}} {days, plural, =0 {# dias} one {# dia} other {# dias}}"
+        },
+        "remainingCredits": {
+          "subtitle": "Cálculos restantes",
+          "value": "{count, plural, =0 {# créditos} one {# crédito} other {# créditos}}"
+        },
+        "reviewedCases": {
+          "subtitle": "Execuções Penais analisadas",
+          "value": "{count, plural, =0 {# processos} one {# processo} other {# processos}}"
+        },
+        "savedAnalysisTime": {
+          "subtitle": "Tempo de análise economizado",
+          "value": "{hours, plural, =0 {#h} one {#h} other {#h}} {minutes, plural, =0 {#min} one {#min} other {#min}}"
+        }
+      },
+      "title": "Minha Spin"
+    },
+    "newsCard": {
+      "noNews": "Nenhuma notícia disponível no momento.",
+      "readMore": "Ler mais",
+      "title": "Giro de Notícias | Execução Penal",
+      "tooltip": "Notícias da atualidade com curadoria Spin"
+    },
+    "numbersSpinCard": {
+      "cta": "Use a Spin e faça parte da mudança!",
+      "stats": {
+        "calculations": {
+          "subtitle": "Em todo o Brasil pela Spin",
+          "value": "{count, plural, =0 {# cálculos realizados} one {# cálculo realizado} other {# cálculos realizados}}"
+        },
+        "timeSaved": {
+          "subtitle": "Total de pena indevida identificado via Spin",
+          "value": "{years, plural, =0 {# anos} one {# ano} other {# anos}} {months, plural, =0 {# meses} one {# mês} other {# meses}} {days, plural, =0 {# dias} one {# dia} other {# dias}}"
+        },
+        "users": {
+          "subtitle": "Total de pessoas ativas na Spin",
+          "value": "{count, plural, =0 {# usuários} one {# usuário} other {# usuários}}"
+        }
+      },
+      "title": "Números Spin | Panorama Geral",
+      "tooltip": "Valores com base em média estatística e métricas internas"
+    },
+    "performNewCalculation": "Realizar Novo Cálculo",
+    "rankingCard": {
+      "table": {
+        "lawyerName": "Nome Advogado",
+        "position": "Posição",
+        "processes": "Processos",
+        "totalYearsSaved": "Anos salvos (total)"
+      },
+      "title": "Ranking de Indultos e Comutações | Top 10",
+      "tooltip": "Ranking atualizado mensalmente pela equipe interna"
+    },
+    "title": "Olá, {firstName}",
+    "useCalculationsPrompt": "Use seus cálculos para garantir justas penas. Clique no botão ao lado para começar:"
+  },
+  "legislacaoPage": {
+    "articlesCount": "{count, plural, =0 {# artigos} one {# artigo} other {# artigos}}",
+    "decretoDetailModal": {
+      "disclaimerBody": "Este resumo tem caráter informativo. Para aplicação prática, consulte sempre o texto completo do decreto e profissionais especializados.",
+      "disclaimerTitle": "Importante",
+      "executiveSummary": "Resumo Executivo",
+      "warningDescription": "Este resumo tem caráter informativo. Para aplicação prática, consulte sempre o texto completo do decreto e profissionais especializados.",
+      "warningTitle": "Importante"
+    },
+    "decretoListItem": {
+      "decretoNumber": "Decreto nº {number}",
+      "focus": "Foco",
+      "publicationDate": "Data da Publicação: {date}",
+      "signatureDate": "Data da Assinatura: {date}",
+      "statusActive": "Ativo",
+      "statusConcluded": "Concluído",
+      "viewDetails": "Ver Detalhes"
+    },
+    "glossarySection": {
+      "title": "Glossário de Termos Jurídicos"
+    },
+    "historySection": {
+      "content": "Conteúdo",
+      "filters": {
+        "all": "Todos ({count})",
+        "articles": "Artigos ({count})",
+        "videos": "Vídeos ({count})"
+      },
+      "searchPlaceholder": "Procure por tópico ou nome",
+      "title": "Histórico de Decretos"
+    },
+    "modal": {
+      "article": {
+        "readMore": "Ler mais"
+      }
+    },
+    "seeMore": "Ver mais",
+    "subtitle": "Entenda e domine o processo para aplicar o Indulto",
+    "title": "Legislação Estruturante da Execução Penal",
+    "videoCount": "{count, plural, =0 {# vídeos} one {# vídeo} other {# vídeos}}"
+  },
+  "loginPage": {
+    "accountType": {
+      "company": "Conta Corporate",
+      "individual": "Conta Individual"
+    },
+    "createAccountButton": "Criar conta",
+    "dontHaveAccount": "Não tem uma conta?",
+    "emailPlaceholder": "seuemail@exemplo.com",
+    "enterAsGuestButton": "Entrar como Visitante",
+    "enterCodeInstruction": "Digite seu código único de convite",
+    "forgotPasswordButton": "Esqueceu a senha?",
+    "genericApiError": "Ocorreu um erro ao tentar entrar. Por favor, tente novamente mais tarde.",
+    "loginWithCodeButton": "Confirmar convite e acessar",
+    "loginWithCodeSubtitle": "Faça parte da evolução jurídica!",
+    "loginWithCodeTitle": "Entre gratuitamente para o grupo de testes inaugural",
+    "passwordPlaceholder": "••••••••",
+    "rememberMe": "Lembrar-me",
+    "submitButton": "Entrar",
+    "subtitle": "Entre com suas credenciais para acessar o sistema",
+    "termsAcceptance": "Ao confirmar e acessar, você autoriza que a Spin entre em contato e declara estar cliente da Política de Privacidade",
+    "title": "Entrar na sua conta",
+    "yourDataIsSafe": "Seus dados estão seguros"
+  },
+  "menu": {
+    "items": {
+      "apenados": "Apenados",
+      "calculos": "Cálculos",
+      "legislacao": "Legislação",
+      "settings": "Configurações",
+      "start": "Início"
+    },
+    "logout": "Sair da conta"
+  },
+  "newApenadoAutomaticForm": {
+    "buttonLabel": "Fazer Upload e Processar",
+    "decretoLabel": "Decreto",
+    "decretoPlaceholder": "Selecione o decreto",
+    "decretoLoadError": "Não foi possível carregar a lista de decretos. Tente novamente.",
+    "emissionDateNotice": "Faça upload dos PDFs emitidos a partir de {dataCorte}.",
+    "errors": {
+      "bothFilesRequired": "Envie os dois PDFs do SEEU (Relatório e Linha do Tempo).",
+      "exactlyTwoFiles": "Envie exatamente 2 PDFs do SEEU.",
+      "decretoRequired": "Selecione o decreto para prosseguir.",
+      "onlyPdfFilesAllowed": "Apenas arquivos PDF são permitidos.",
+      "documentoEmitidoAntesDoDecreto": "Para calcular o indulto, é necessário fazer upload do relatório executório e da linha do tempo emitidos a partir de {dataCorte}.",
+      "unexpected": {
+        "message": "Ocorreu um erro inesperado ao processar o arquivo. Por favor, tente novamente mais tarde.",
+        "title": "Erro Inesperado"
+      }
+    },
+    "fileInputLabel": "Arquivos do SEEU",
+    "instructionText": "Faça upload do Relatório da Situação Processual Executória e da Linha do Tempo, ambos extraídos do SEEU do Apenado. A ordem não importa — identificamos cada um automaticamente.",
+    "validationMessage": "Selecione o decreto e adicione os dois arquivos para prosseguir"
+  },
+  "newApenadoCard": {
+    "buttonLabel": "Novo Cálculo",
+    "description": "Cadastre um novo apenado e calcule a pena",
+    "title": "Novo Apenado"
+  },
+  "newApenadoDialog": {
+    "manualForm": {
+      "benefits": {
+        "automatedCalculation": "Cálculo automatizado de indulto",
+        "personalData": "Dados pessoais do apenado",
+        "sentenceInfo": "Informações da pena"
+      },
+      "buttonLabel": "Iniciar Cadastro",
+      "description": "Preencha os dados do formulário",
+      "subtitle": "Preencha todas as informações necessárias para o cálculo automatizado do indulto conforme o Decreto de 2024",
+      "title": "Cadastro Manual",
+      "wizardTitle": "Formulário Completo em 7 Etapas"
+    },
+    "title": "Adicionar Novo Apenado"
+  },
+  "notFoundPage": {
+    "backToHome": "Voltar para a página inicial",
+    "description": "Desculpe, a página que você está procurando não foi encontrada.",
+    "title": "Página Não Encontrada"
+  },
+  "settingsPage": {
+    "changePhoto": "Alterar Foto",
+    "deleteAccountSection": {
+      "deleteAccountButton": "Desativar conta",
+      "description": "Esta ação é irreversível e seus dados serão deletados da base de dados, sem a oportunidade de reativação.",
+      "title": "Desativar conta e deletar dados"
+    },
+    "securitySection": {
+      "changePassword": {
+        "description": "Última alteração de senha: 15/11/2025",
+        "title": "Alterar Senha"
+      },
+      "changePasswordButton": "Alterar Senha",
+      "configureButton": "Configurar",
+      "title": "Segurança",
+      "twoFactor": {
+        "description": "Adicione uma camada extra de segurança.",
+        "title": "Autenticação em Dois Fatores"
+      }
+    },
+    "subtitle": "Gerencie as preferências do sistema e sua conta",
+    "systemSection": {
+      "autoSaveDrafts": {
+        "description": "Salve automaticamente o progresso dos cadastros.",
+        "title": "Auto-salvar Rascunhos"
+      },
+      "emailNotifications": {
+        "description": "Receba atualizações sobre cálculos e novos decretos.",
+        "title": "Notificações por Email"
+      },
+      "enabled": "Ativado",
+      "title": "Preferências do Sistema"
+    },
+    "termsSection": {
+      "sectionTitle": "Termos e Políticas",
+      "title": "SPIN Legal - Sistema de Cálculos Jurídicos",
+      "version": "Versão - Atualizado em {date}"
+    },
+    "title": "Perfil e Configurações",
+    "userSection": {
+      "cancelButton": "Cancelar",
+      "email": "Email",
+      "first_name": "Nome",
+      "last_name": "Sobrenome",
+      "oab_number": "Número da OAB",
+      "saveChangesButton": "Salvar Alterações",
+      "title": "Perfil do usuário"
+    }
+  },
+  "terms": {
+    "acceptButtonText": "Aceitar e Adentrar na Spin",
+    "acceptMessage": "Ao clicar no botão, você está ciente dos termos acima",
+    "privacyPolicy": "Política de Privacidade",
+    "useTerm": "Termos de Uso"
+  }
+}
