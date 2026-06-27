@@ -23,7 +23,10 @@ import { AlertCircleIcon } from "lucide-react";
 
 export const DecretoListItemFocusBadge = ({ label }: { label: string }) => {
   return (
-    <div className="text-xs leading-none font-medium px-2.5 py-1.5 bg-indigo-100 text-indigo-800 rounded-sm">
+    <div
+      className="text-xs leading-none font-medium px-2.5 py-1.5 rounded-md"
+      style={{ background: "rgba(99,102,241,0.18)", color: "rgba(165,180,252,0.9)" }}
+    >
       {label}
     </div>
   );
@@ -57,69 +60,83 @@ export const DecretoListLine = ({ decreto }: { decreto: DecretoListItem }) => {
   );
 
   const t = useTranslations();
+
   return (
-    <article className="bg-white border group overflow-hidden relative border-gray-400 px-2 py-3 rounded-lg hover:border-purple-600 hover:shadow-lg transition-all duration-300">
-      <div className="grid grid-cols-3 template-rows-[auto_auto] gap-0">
-        <header className="border-b border-r pb-4 pr-4">
-          <div className="flex gap-2 items-center justify-between">
-            <section className="flex items-center gap-1 pt-2">
-              <i className="material-symbols-outlined text-sm text-gray-400">
-                calculate
-              </i>
-              <span className="font-bold text-lg text-gray-900 leading-none">
-                {decreto.nome}
-              </span>
-            </section>
-            {decreto.status === DecretoStatusEnum.Ativo && (
-              <Badge variant="secondary-success" className="text-xs">
-                {t("legislacaoPage.decretoListItem.statusActive")}
-              </Badge>
-            )}
-            {decreto.status === DecretoStatusEnum.Concluido && (
-              <Badge variant="secondary" className="text-xs">
-                {t("legislacaoPage.decretoListItem.statusConcluded")}
-              </Badge>
-            )}
-          </div>
-        </header>
-        <section className="flex col-span-2 flex-2 flex-col gap-2 border-b border-l text-gray-800 pb-2 pl-4 pt-4">
-          <p className="mb-0 text-xs">{decreto.descricao}</p>
-        </section>
-        <footer className="flex gap-2 px-2 pt-2 text-gray-800 items-center font-medium text-xs border-r border-t">
-          <span className="flex gap-2 items-center">
-            <span className="leading-none">
-              {"·"}{" "}
-              {t("legislacaoPage.decretoListItem.signatureDate", {
-                date: signatureDate ? dateFormatter.format(signatureDate) : "",
-              })}
-            </span>
+    <article
+      className="rounded-xl px-4 py-4 group relative overflow-hidden transition-all duration-200"
+      style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.08)", backdropFilter: "blur(8px)" }}
+      onMouseEnter={(e) => {
+        (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.08)";
+      }}
+      onMouseLeave={(e) => {
+        (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.05)";
+      }}
+    >
+      {/* Top row: name + badge */}
+      <div className="flex items-center justify-between gap-3 mb-2">
+        <div className="flex items-center gap-2 min-w-0">
+          <span
+            className="material-symbols-outlined text-base leading-none shrink-0"
+            style={{ color: "rgba(139,92,246,0.75)" }}
+          >
+            calculate
           </span>
-          <Separator orientation="vertical" />
-          <span className="flex gap-2 items-center">
-            <span className="leading-none">
-              {"·"}{" "}
-              {t("legislacaoPage.decretoListItem.publicationDate", {
-                date: publicationDate
-                  ? dateFormatter.format(publicationDate)
-                  : "",
-              })}
-            </span>
+          <span className="font-bold text-white leading-snug truncate">
+            {decreto.nome}
           </span>
-        </footer>
-        <footer className="border-l border-t flex gap-2 col-span-2 pt-2 pl-4 items-center">
-          <span className="leading-none text-gray-900 text-sm font-medium">
-            {t("legislacaoPage.decretoListItem.focus")}:
+        </div>
+        <div className="shrink-0">
+          {decreto.status === DecretoStatusEnum.Ativo && (
+            <Badge variant="secondary-success" className="text-xs">
+              {t("legislacaoPage.decretoListItem.statusActive")}
+            </Badge>
+          )}
+          {decreto.status === DecretoStatusEnum.Concluido && (
+            <Badge variant="secondary" className="text-xs">
+              {t("legislacaoPage.decretoListItem.statusConcluded")}
+            </Badge>
+          )}
+        </div>
+      </div>
+
+      {/* Description */}
+      <p className="text-xs mb-4 leading-relaxed" style={{ color: "rgba(255,255,255,0.5)" }}>
+        {decreto.descricao}
+      </p>
+
+      {/* Bottom row: dates + focus badges + action */}
+      <div className="flex items-center gap-3 flex-wrap">
+        {/* Dates */}
+        <span className="flex items-center gap-2 text-xs" style={{ color: "rgba(255,255,255,0.35)" }}>
+          <span>
+            {t("legislacaoPage.decretoListItem.signatureDate", {
+              date: signatureDate ? dateFormatter.format(signatureDate) : "—",
+            })}
           </span>
-          <section className="flex gap-1 flex-1">
+          <Separator orientation="vertical" className="h-3 opacity-30" />
+          <span>
+            {t("legislacaoPage.decretoListItem.publicationDate", {
+              date: publicationDate ? dateFormatter.format(publicationDate) : "—",
+            })}
+          </span>
+        </span>
+
+        {/* Focus badges */}
+        {decreto.focos.length > 0 && (
+          <div className="flex gap-1 flex-wrap">
             {decreto.focos.map((foco) => (
               <DecretoListItemFocusBadge key={foco} label={foco} />
             ))}
-          </section>
+          </div>
+        )}
+
+        {/* View details button — pushed to the right */}
+        <div className="ml-auto">
           <DecretoListItemModal
             trigger={
               <DecretoDetailModal decreto={decreto}>
-                <Button variant="outline" className="cursor-pointer">
-                  <i className="material-symbols-outlined text-blue-500">
+                <Button variant="outline" className="cursor-pointer" size="sm">
+                  <i className="material-symbols-outlined material-symbols-outlined-sized text-blue-400">
                     description
                   </i>
                   {t("legislacaoPage.decretoListItem.viewDetails")}
@@ -127,9 +144,13 @@ export const DecretoListLine = ({ decreto }: { decreto: DecretoListItem }) => {
               </DecretoDetailModal>
             }
           />
-        </footer>
+        </div>
       </div>
-      <span className="absolute top-0 left-0 h-full w-2 bg-purple-200 border-r border-purple-800 opacity-0 group-hover:opacity-100 transition-all duration-300"></span>
+
+      {/* Left accent bar on hover */}
+      <span className="absolute top-0 left-0 h-full w-1 rounded-l-xl opacity-0 group-hover:opacity-100 transition-all duration-300"
+        style={{ background: "rgba(139,92,246,0.6)" }}
+      />
     </article>
   );
 };
