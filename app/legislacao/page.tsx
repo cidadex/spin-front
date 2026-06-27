@@ -3,8 +3,6 @@
 import { ProtectedRoute } from "@/components/routes/ProtectedRoute";
 import { AuthStatusEnum } from "@/types/enums/auth";
 import { useTranslations } from "next-intl";
-import { PageMainContentWrapper } from "../components/page-main-content-wrapper/PageMainContentWrapper";
-import { PageTitle } from "../components/page-title/PageTitle";
 import {
   useCallback,
   useEffect,
@@ -114,74 +112,77 @@ const LegislacaoPage = () => {
   }, [page, totalPages, fetching, getPage, filterText]);
 
   return (
-    <div className="min-h-screen w-full flex flex-col gap-2">
-      <div className="container">
-        <PageTitle title={t("legislacaoPage.title")} />
+    <div className="relative w-full min-h-[calc(100svh-60px)] flex flex-col" style={{ zIndex: 1 }}>
+
+      {/* ── Header ─────────────────────────────────────────── */}
+      <section className="w-full px-6 md:px-10 pt-10 pb-8">
+        <p className="text-sm font-medium mb-1" style={{ color: "rgba(236,209,166,0.7)" }}>
+          Base Jurídica
+        </p>
+        <h1 className="text-2xl font-bold text-white">
+          {t("legislacaoPage.title")}
+        </h1>
+        <p className="text-sm mt-2 mb-8" style={{ color: "rgba(255,255,255,0.4)" }}>
+          {t("legislacaoPage.subtitle")}
+        </p>
         <LegislacaoHeader />
-      </div>
-      <PageMainContentWrapper>
-        <div className="w-full max-w-full flex flex-col">
-          <header className="flex gap-3 pb-6 pt-7 flex-wrap items-center">
-            <h2 className="text-gray-900 font-semibold text-xl leading-none">
-              {t("legislacaoPage.historySection.title")}
-            </h2>
-            <span className="dark text-foreground">
-              <InputGroup className="bg-gray-600! min-w-[300px] max-w-full">
-                <InputGroupInput
-                  type="text"
-                  value={inputFilterText}
-                  onChange={(e) => setFilterText(e.target.value)}
-                  placeholder={t(
-                    "legislacaoPage.historySection.searchPlaceholder"
-                  )}
-                />
-                <InputGroupAddon>
-                  <span className="material-symbols-outlined text-inherit">
-                    search
-                  </span>
-                </InputGroupAddon>
-              </InputGroup>
-            </span>
-          </header>
-          <div className="flex flex-col gap-2 pb-4">
-            {decretos.map((decreto) => (
-              <DecretoListLine key={decreto.uuid} decreto={decreto} />
-            ))}
-            {fetching &&
-              Array(pageSize)
-                .fill(null)
-                .map((_, i) => (
-                  <DecretoListItemSkeleton key={`loading_${i}`} />
-                ))}
-            <div ref={paginationTriggerRef} />
-          </div>
+      </section>
+
+      {/* ── Decretos list ───────────────────────────────────── */}
+      <div className="flex-1 px-6 md:px-10 pb-10">
+        {/* Toolbar */}
+        <div className="flex gap-3 pb-5 flex-wrap items-center justify-between">
+          <h2 className="text-white font-semibold text-base leading-none">
+            {t("legislacaoPage.historySection.title")}
+          </h2>
+          <span className="dark text-foreground">
+            <InputGroup>
+              <InputGroupInput
+                type="text"
+                value={inputFilterText}
+                onChange={(e) => setFilterText(e.target.value)}
+                placeholder={t("legislacaoPage.historySection.searchPlaceholder")}
+              />
+              <InputGroupAddon>
+                <span className="material-symbols-outlined text-inherit">search</span>
+              </InputGroupAddon>
+            </InputGroup>
+          </span>
         </div>
-      </PageMainContentWrapper>
+
+        {/* List */}
+        <div className="flex flex-col gap-2 pb-4">
+          {decretos.map((decreto) => (
+            <DecretoListLine key={decreto.uuid} decreto={decreto} />
+          ))}
+          {fetching &&
+            Array(pageSize)
+              .fill(null)
+              .map((_, i) => <DecretoListItemSkeleton key={`loading_${i}`} />)}
+          <div ref={paginationTriggerRef} />
+        </div>
+      </div>
     </div>
   );
 };
 
 const DecretoListItemSkeleton = () => {
   return (
-    <article className="bg-white/30 border group overflow-hidden relative border-gray-400 px-2 py-3 rounded-lg  min-w-full">
-      <div className="grid grid-cols-3 gap-4">
-        <Skeleton className="w-full h-10" />
-        <Skeleton className="w-full col-span-2 h-10" />
+    <div
+      className="rounded-xl px-4 py-4"
+      style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.08)", backdropFilter: "blur(8px)" }}
+    >
+      <div className="flex items-center justify-between mb-3">
+        <Skeleton className="w-48 h-5" style={{ background: "rgba(255,255,255,0.08)" }} />
+        <Skeleton className="w-16 h-5 rounded-full" style={{ background: "rgba(255,255,255,0.08)" }} />
       </div>
-      <div className="grid grid-cols-3 gap-4 mt-2 items-center">
-        <div className="flex gap-2 py-2">
-          <Skeleton className="w-full h-8" />
-          <Skeleton className="w-full h-8" />
-        </div>
-        <div className="flex gap-2 py-2">
-          <Skeleton className="w-full h-8" />
-          <Skeleton className="w-full h-8" />
-          <Skeleton className="w-full h-8" />
-        </div>
-        <div className="flex gap-2 justify-end">
-          <Skeleton className="w-1/2 h-10" />
-        </div>
+      <Skeleton className="w-full h-4 mb-2" style={{ background: "rgba(255,255,255,0.06)" }} />
+      <Skeleton className="w-3/4 h-4 mb-4" style={{ background: "rgba(255,255,255,0.06)" }} />
+      <div className="flex gap-2">
+        <Skeleton className="w-24 h-5 rounded-full" style={{ background: "rgba(255,255,255,0.06)" }} />
+        <Skeleton className="w-24 h-5 rounded-full" style={{ background: "rgba(255,255,255,0.06)" }} />
+        <Skeleton className="w-28 h-8 rounded-lg ml-auto" style={{ background: "rgba(255,255,255,0.06)" }} />
       </div>
-    </article>
+    </div>
   );
 };
