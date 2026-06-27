@@ -17,14 +17,12 @@ export const AuthenticatedLayout = ({ children }: PropsWithChildren) => {
 
   return (
     <>
-      <div className="flex flex-col relative min-h-svh authenticated-layout-bg">
-        <Bg />
-      </div>
+      <div className="flex flex-col relative min-h-svh authenticated-layout-bg" />
       <div>
         {!hideMenu && (
           <>
             <Menu />
-            <div className="flex-1 flex items-center justify-center">
+            <div className="w-full">
               <ContainerWrapper>{children}</ContainerWrapper>
             </div>
           </>
@@ -37,7 +35,7 @@ export const AuthenticatedLayout = ({ children }: PropsWithChildren) => {
 };
 
 export const ContainerWrapper = ({ children }: PropsWithChildren) => {
-  return <div className="relative ">{children}</div>;
+  return <div className="relative w-full">{children}</div>;
 };
 
 export const GuestLayout = ({ children }: PropsWithChildren) => {
