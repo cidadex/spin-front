@@ -7,3 +7,8 @@ npm-debug.log*
 .DS_Store
 tsconfig.tsbuildinfo
 coverage/
+
+# Replit (não commitar)
+.replit-artifact/
+.git-spin-front/
+.replit*
