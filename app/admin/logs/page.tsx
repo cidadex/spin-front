@@ -48,7 +48,7 @@ export default function AdminLogsPage() {
       if (filter !== "ALL") params.set("level", filter);
       const client = ApiClient.getInstance();
       const data = await client.get<LogsResponse>(
-        `/api/logs/?${params.toString()}`
+        `/api/calculadora/logs/?${params.toString()}`
       );
       setLogs(data.results);
       setCount(data.count);
@@ -79,7 +79,7 @@ export default function AdminLogsPage() {
     if (!confirm("Apagar todos os logs? Esta ação não pode ser desfeita."))
       return;
     try {
-      const res = await fetch("/api/logs/", { method: "DELETE" });
+      const res = await fetch("/api/calculadora/logs/", { method: "DELETE" });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       fetchLogs();
     } catch (e) {
