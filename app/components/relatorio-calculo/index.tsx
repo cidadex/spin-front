@@ -421,17 +421,19 @@ export const RelatorioCalculoAnaliseDeElegibilidade = ({
         </h2>
       </header>
       <section className="flex flex-col gap-2">
-        <div className="flex gap-2 justify-between items-center">
+        <div className="flex flex-col gap-1.5">
           <span className="text-gray-600 text-xs font-normal leading-none">
             {t(
               "calculosPage.relatorio.analiseElegibilidade.gatilhosExclusaoAbsoluta"
             )}
           </span>
-          <GatilhoDeExelusaoAbsolutos
-            gatilhosExclusaoAbsolutos={
-              relatorio.analise_elegibilidade.gatilhos_exclusao_absolutos
-            }
-          />
+          <div className="flex flex-wrap gap-1">
+            <GatilhoDeExelusaoAbsolutos
+              gatilhosExclusaoAbsolutos={
+                relatorio.analise_elegibilidade.gatilhos_exclusao_absolutos
+              }
+            />
+          </div>
         </div>
         <div className="flex gap-2 justify-between items-center">
           <span className="text-gray-600 text-xs font-normal leading-none">
@@ -506,7 +508,7 @@ const GatilhoDeExelusaoAbsolutos = ({
   }
 
   return gatilhos.map((gatilho, index) => (
-    <Badge key={index} variant="warning">
+    <Badge key={index} variant="warning" className="whitespace-normal text-center leading-snug h-auto py-1">
       {gatilho}
     </Badge>
   ));
