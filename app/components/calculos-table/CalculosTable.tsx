@@ -74,11 +74,21 @@ async function navigateToCalculoFromCalculationUuid(
   calculadoraService.clearTempCalculationData();
   const response = await calculadoraService.getCalculation(uuid);
   const apenado_id = response.data.apenado.uuid;
-  const decreto_id =
+
+  let decreto_id: string | null | undefined =
     response.data.decreto ??
     response.data.apenado.calculations?.find(
       (c: { decreto?: string | null }) => c.decreto
     )?.decreto;
+
+  // Fallback: se o cálculo foi criado antes de vincular o decreto (cálculos antigos),
+  // busca o primeiro decreto ativo disponível para o usuário.
+  if (!decreto_id) {
+    const decretosResponse = await calculadoraService.listDecretos({ page: 1, page_size: 5 });
+    const firstDecreto = decretosResponse.data?.results?.[0];
+    decreto_id = firstDecreto?.uuid ?? null;
+  }
+
   if (!decreto_id) {
     throw new Error("Decreto ID is missing in calculation data");
   }
