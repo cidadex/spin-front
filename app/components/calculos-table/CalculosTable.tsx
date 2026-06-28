@@ -240,7 +240,12 @@ export const CalculosTableLine = ({
         <div className="h-full w-full py-2 text-center text-muted-foreground pl-4">
           <span className="flex flex-col justify-center items-center pr-4 border-r h-full text-sm leading-none">
             <CalculosTableLineResultadoLabel
-              resultado={calculation.latest_resultado}
+              resultado={
+                calculation.latest_status === CalculationStatusEnum.Open ||
+                calculation.latest_status === CalculationStatusEnum.InProgress
+                  ? null
+                  : calculation.latest_resultado
+              }
             />
           </span>
         </div>
@@ -376,9 +381,8 @@ export const CalculosTableLineActions = ({
   const [cancelDialogOpen, setCancelDialogOpen] = useState(false);
   const [performNewDialogOpen, setPerformNewDialogOpen] = useState(false);
   const showRetomarCalculoButton =
-    (status === CalculationStatusEnum.Open ||
-      status === CalculationStatusEnum.InProgress) &&
-    (resultado === null || resultado === CalculationResultEnum.PendingInfo);
+    status === CalculationStatusEnum.Open ||
+    status === CalculationStatusEnum.InProgress;
 
   const showVerPeticaoButton =
     !showRetomarCalculoButton &&
