@@ -35,10 +35,10 @@ const itemVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-white",
-        outline: "bg-white border-border",
+        default: "bg-white text-gray-900",
+        outline: "bg-white border-border text-gray-900",
         muted: "bg-muted/50",
-        selected: "bg-gray-50 border-primary",
+        selected: "bg-gray-50 border-primary text-gray-900",
       },
       size: {
         default: "gap-4 p-4",
