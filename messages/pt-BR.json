@@ -230,7 +230,7 @@
       }
     },
     "questionarioDinamico": {
-      "aiAutoFilledAlert": "Alguns campos podem ter sido preenchidos automaticamente por Inteligencia Artificial (IA), verifique antes de prosseguir.",
+      "aiAutoFilledAlert": "Alguns campos podem ter sido preenchidos automaticamente a partir do arquivo importado, verifique antes de prosseguir.",
       "answerQuestionsTooltip": "Responda perguntas para qualificar o contexto técnico de cálculo",
       "calculateEligibility": "Calcular Eligibilidade",
       "dateInput": {
@@ -238,7 +238,7 @@
         "placeholder": "Inserir data"
       },
       "eachResponseEvaluated": "Cada resposta é avaliada para determinar a próxima etapa da análise.",
-      "intelligentAnalysisInProgress": "Análise Inteligente em Andamento |",
+      "intelligentAnalysisInProgress": "Análise em Andamento |",
       "stepDescription": "Aguardando Início",
       "stepTitle": "Questionário Dinâmico",
       "successPage": {
@@ -488,6 +488,7 @@
     "cepPlaceholder": "00000-000",
     "complemento": "Complemento",
     "complementoPlaceholder": "Apto, bloco, etc.",
+    "confirm": "Confirmar",
     "crimesCount": "{count, plural, =0 {# crimes} one {# crime} other {# crimes}}",
     "duration": {
       "days": "{count, plural, =0 {# dias} one {# dia} other {# dias}}",
