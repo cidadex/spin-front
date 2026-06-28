@@ -74,7 +74,11 @@ async function navigateToCalculoFromCalculationUuid(
   calculadoraService.clearTempCalculationData();
   const response = await calculadoraService.getCalculation(uuid);
   const apenado_id = response.data.apenado.uuid;
-  const decreto_id = response.data.apenado.calculations[0].decreto;
+  const decreto_id =
+    response.data.decreto ??
+    response.data.apenado.calculations?.find(
+      (c: { decreto?: string | null }) => c.decreto
+    )?.decreto;
   if (!decreto_id) {
     throw new Error("Decreto ID is missing in calculation data");
   }
