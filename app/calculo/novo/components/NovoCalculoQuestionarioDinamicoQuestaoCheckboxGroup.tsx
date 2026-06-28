@@ -9,6 +9,7 @@ import { Activity } from "@/components/ui/activity";
 import { NovoCalculoQuestionarioDinamicoQuestaoTitle } from "./NovoCalculoQuestionarioDinamicoQuestaoTitle";
 import { useNovoCalculo } from "@/hooks/useNovoCalculo";
 import { useTranslations } from "next-intl";
+import { toast } from "sonner";
 export interface CheckboxGroupOpcao {
   id: string;
   label: string;
@@ -66,8 +67,14 @@ export const NovoCalculoQuestionarioDinamicoQuestaoCheckboxGroup = ({
     setLoading(true);
     const selectedLabels = Array.from(selected)
       .map((id) => opcoes.find((o) => o.id === id)?.label ?? id);
-    await onChange(selected.size > 0, selectedLabels);
-    setLoading(false);
+    try {
+      await onChange(selected.size > 0, selectedLabels);
+    } catch (err) {
+      console.error("[CheckboxGroup] onChange falhou:", err);
+      toast.error("Erro ao registrar resposta. Verifique sua conexão e tente novamente.");
+    } finally {
+      setLoading(false);
+    }
   }, [onChange, selected, opcoes]);
 
   return (
