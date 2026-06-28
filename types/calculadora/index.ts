@@ -29,6 +29,11 @@ export interface CalculadoraCalculateMetadata {
   distribuir_cumprido?: boolean;
   dias_cumpridos_manual?: number;
   penas_para_cumprido?: string[];
+  /** F4.3/F4.4: incisos selecionados pelo advogado para variáveis checkbox-group.
+   *  Chave = identificador completo da variável (ex: "apenado.condicao_medica").
+   *  Valor = array de labels selecionados (ex: ["Inc. I — ...", "Inc. IV — ..."]).
+   *  Não enviado ao backend (ignorado); apenas usado na UI do relatório. */
+  incisos_selecionados?: Record<string, string[]>;
 }
 export interface CalculadoraCalculatePayload {
   apenado_id: string;
@@ -239,6 +244,17 @@ export interface CalculadoraRelatorioDoCalculo {
     data_sentenca: SeeuDate;
   }[];
   justificativa?: CalculadoraJustificativa | null;
+  /** Respostas completas do questionário dinâmico, separadas por escopo e por processo. */
+  respostas_questionario?: {
+    apenado: CalculadoraVariavelRespondida[];
+    crimes: {
+      crime_id: string;
+      numero_condenacao: string;
+      dispositivo: string;
+      diploma: string;
+      respostas: CalculadoraVariavelRespondida[];
+    }[];
+  };
 }
 
 export interface CalculadoraJustificativaFonte {
