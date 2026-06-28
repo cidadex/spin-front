@@ -3,14 +3,16 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
 import {
+  cn,
   daysToYearsMonthsDays,
   seeuDateConverter,
   yearsMonthsDaysToHumanReadable,
 } from "@/lib/utils";
-import { CalculadoraRelatorioDoCalculo } from "@/types/calculadora";
+import { CalculadoraRelatorioDoCalculo, CalculadoraVariavelRespondida } from "@/types/calculadora";
 import { ApenadoRegimeAtualEnum } from "@/types/enums";
 import { useTranslations } from "next-intl";
 import { useCallback } from "react";
+import { CalculadoraService } from "@/services/calculadora/CalculadoraService";
 
 export const RelatorioCalculo = ({
   relatorio,
@@ -378,6 +380,7 @@ export const RelatorioCalculo = ({
       </div>
       <RelatorioCalculoAnaliseDeElegibilidade relatorio={relatorio} />
       <ResultadoFinal relatorio={relatorio} />
+      <RespostasQuestionario relatorio={relatorio} />
       <FundamentacaoDaDecisao relatorio={relatorio} />
       <div className="bg-amber-50 border border-amber-400 w-full p-5 rounded-lg flex gap-2 items-start">
         <span className="text-sm leading-none">
@@ -613,6 +616,89 @@ type BadgeVariant =
   | "warning"
   | "secondary";
 
+export const RespostasQuestionario = ({
+  relatorio,
+}: {
+  relatorio: CalculadoraRelatorioDoCalculo;
+}) => {
+  const rq = relatorio.respostas_questionario;
+  if (!rq) return null;
+
+  const hasApenado = rq.apenado && rq.apenado.length > 0;
+  const crimesComRespostas = (rq.crimes ?? []).filter(
+    (c) => c.respostas && c.respostas.length > 0
+  );
+
+  if (!hasApenado && crimesComRespostas.length === 0) return null;
+
+  const fmtValor = (r: CalculadoraVariavelRespondida): string => {
+    if (r.valor === null || r.valor === undefined) return "—";
+    if (r.tipo === "boolean" || typeof r.valor === "boolean")
+      return r.valor ? "Sim" : "Não";
+    return String(r.valor);
+  };
+
+  const corValor = (r: CalculadoraVariavelRespondida): string => {
+    if (r.tipo === "boolean" || typeof r.valor === "boolean") {
+      return r.valor ? "text-green-700" : "text-red-600";
+    }
+    return "text-gray-700";
+  };
+
+  const RespostaLinha = ({ r }: { r: CalculadoraVariavelRespondida }) => (
+    <div className="flex items-start justify-between gap-4 py-1.5 border-b border-gray-100 last:border-0">
+      <span className="text-xs text-gray-600 leading-snug flex-1">
+        {r.pergunta || r.identificador}
+      </span>
+      <span className={cn("text-xs font-semibold shrink-0", corValor(r))}>
+        {fmtValor(r)}
+      </span>
+    </div>
+  );
+
+  return (
+    <div className="bg-white border border-gray-200 rounded-xl p-5 flex flex-col gap-4">
+      <header className="flex items-center gap-2">
+        <span className="text-gray-700 text-sm font-bold uppercase tracking-wide leading-none">
+          📝 Respostas do Questionário
+        </span>
+      </header>
+
+      {/* Dados gerais do apenado */}
+      {hasApenado && (
+        <div className="flex flex-col gap-1">
+          <h3 className="text-[11px] font-semibold text-gray-400 uppercase tracking-wider mb-1">
+            Dados gerais do apenado
+          </h3>
+          {rq.apenado.map((r, i) => (
+            <RespostaLinha key={i} r={r} />
+          ))}
+        </div>
+      )}
+
+      {/* Respostas por processo */}
+      {crimesComRespostas.map((crime, i) => (
+        <div key={i} className="flex flex-col gap-1">
+          <h3 className="text-[11px] font-semibold text-gray-400 uppercase tracking-wider mb-1">
+            {crime.numero_condenacao
+              ? `Processo ${crime.numero_condenacao}`
+              : `Crime ${i + 1}`}
+            {crime.dispositivo && (
+              <span className="normal-case font-normal text-gray-400">
+                {" "}
+                — {crime.dispositivo}
+              </span>
+            )}
+          </h3>
+          {crime.respostas.map((r, j) => (
+            <RespostaLinha key={j} r={r} />
+          ))}
+        </div>
+      ))}
+    </div>
+  );
+};
+
 export const FundamentacaoDaDecisao = ({
   relatorio,
 }: {
@@ -620,6 +706,13 @@ export const FundamentacaoDaDecisao = ({
 }) => {
   const t = useTranslations();
   const justificativa = relatorio.justificativa;
+
+  // F4.3/F4.4: incisos selecionados pelo advogado no questionário (persiste via localStorage)
+  const incisosSelecionados =
+    typeof window !== "undefined"
+      ? (CalculadoraService.getInstance().getTempCalculationMetadata()
+          ?.incisos_selecionados ?? {})
+      : {};
 
   if (!justificativa || !justificativa.itens?.length) {
     return null;
@@ -696,6 +789,31 @@ export const FundamentacaoDaDecisao = ({
               <p className="text-gray-600 text-xs leading-snug">
                 {no.explicacao}
               </p>
+              {/* F4.3/F4.4: incisos escolhidos pelo advogado no questionário */}
+              {(() => {
+                const matchKey = Object.keys(incisosSelecionados).find(
+                  (k) => k === no.id || k.endsWith(`.${no.id}`) || no.id.endsWith(`.${k.split(".").pop()}`)
+                );
+                const incisos = matchKey ? incisosSelecionados[matchKey] : null;
+                if (!incisos || incisos.length === 0) return null;
+                return (
+                  <div className="flex flex-col gap-1 border-t border-gray-200 pt-2">
+                    <span className="text-gray-500 text-[11px] font-semibold uppercase leading-none">
+                      Incisos declarados
+                    </span>
+                    <ul className="flex flex-col gap-0.5">
+                      {incisos.map((label, i) => (
+                        <li
+                          key={i}
+                          className="text-gray-600 text-[11px] leading-snug"
+                        >
+                          • {label}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                );
+              })()}
               {fundamentos.length > 0 && (
                 <p className="text-gray-500 text-[11px] leading-snug">
                   {t("calculosPage.relatorio.fundamentacao.fundamentoLabel")}{" "}
