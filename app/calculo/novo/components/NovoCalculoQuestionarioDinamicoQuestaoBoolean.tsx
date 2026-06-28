@@ -5,6 +5,7 @@ import { NovoCalculoQuestionarioDinamicoQuestaoTitle } from "./NovoCalculoQuesti
 import { useCallback, useMemo, useState } from "react";
 import { LoaderIcon } from "lucide-react";
 import { useNovoCalculo } from "@/hooks/useNovoCalculo";
+import { toast } from "sonner";
 
 export const NovoCalculoQuestionarioDinamicoQuestaoBoolean = ({
   onChange,
@@ -30,8 +31,14 @@ export const NovoCalculoQuestionarioDinamicoQuestaoBoolean = ({
   const handleOnChange = useCallback(
     async (value: boolean) => {
       setChanging(true);
-      await onChange?.(value);
-      setChanging(false);
+      try {
+        await onChange?.(value);
+      } catch (err) {
+        console.error("[Boolean] onChange falhou:", err);
+        toast.error("Erro ao registrar resposta. Verifique sua conexão e tente novamente.");
+      } finally {
+        setChanging(false);
+      }
     },
     [onChange]
   );
