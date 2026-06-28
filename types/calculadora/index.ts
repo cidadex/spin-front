@@ -68,6 +68,7 @@ export interface CalculadoraGetCalculationMarcosTemporaisDetalhe extends Process
 
 export type CalculadoraGetCalculationResponseBase = {
   uuid?: string;
+  decreto?: string | null;
   status?: CalculationStatusEnum;
   resultado?: CalculationResultEnum | null;
   resultado_detalhado?: CalculadoraCalculateResponseBase;
