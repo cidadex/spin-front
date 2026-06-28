@@ -17,6 +17,10 @@ import { useRouter } from "next/navigation";
 import { NovoCalculoQuestionarioDinamicoQuestaoNumer } from "./NovoCalculoQuestionarioDinamicoQuestaoNumber";
 import { useNovoCalculo } from "@/hooks/useNovoCalculo";
 import { CalculadoraService } from "@/services/calculadora/CalculadoraService";
+import {
+  CheckboxGroupOpcao,
+  NovoCalculoQuestionarioDinamicoQuestaoCheckboxGroup,
+} from "./NovoCalculoQuestionarioDinamicoQuestaoCheckboxGroup";
 
 export type BooleanQuestionProps = {
   questao: CalculadoraVariavelPendiente & {
@@ -75,6 +79,81 @@ const isDecimalQuestion = (
   p: NovoCalculoQuestionarioDinamicoQuestaoProps
 ): p is DecimalQuestionProps =>
   p.questao.tipo === CalculationVariavelTypeEnum.Decimal;
+
+// F4.3 — Humanitária por alínea (art. 9º, XVI alíneas I/II/IV/V)
+const OPCOES_CONDICAO_MEDICA: CheckboxGroupOpcao[] = [
+  {
+    id: "I",
+    label:
+      "Inc. I — Paraplegia, tetraplegia, monoplegia, hemiplegia, ostomia, amputação, paralisia, cegueira ou deficiência física análoga (não anterior à prática do crime)",
+  },
+  {
+    id: "II",
+    label: "Inc. II — HIV em estágio terminal",
+  },
+  {
+    id: "IV",
+    label:
+      "Inc. IV — Doença grave, crônica ou altamente contagiosa com grave limitação funcional (câncer estágio IV, insuficiência renal aguda, esclerose múltipla, ELA, tuberculose avançada, diabetes tipo 1)",
+  },
+  {
+    id: "V",
+    label:
+      "Inc. V — Transtorno do espectro autista severo (grau 3) ou neurodiversidade análoga",
+  },
+];
+
+// F4.4 — Pobreza: 7 incisos do art. 12, §2º
+const OPCOES_HIPOSUFICIENTE: CheckboxGroupOpcao[] = [
+  {
+    id: "I",
+    label: "Inc. I — Declaração de hipossuficiência (sob as penas da lei)",
+  },
+  {
+    id: "II",
+    label:
+      "Inc. II — Representado por Defensoria Pública, dativo no múnus público ou núcleo de prática jurídica",
+  },
+  {
+    id: "III",
+    label:
+      "Inc. III — Beneficiário de programa social (Bolsa Família, Auxílio Brasil, BPC-LOAS)",
+  },
+  {
+    id: "IV",
+    label: "Inc. IV — Inscrito no CadÚnico",
+  },
+  {
+    id: "V",
+    label: "Inc. V — Pessoa em situação de rua",
+  },
+  {
+    id: "VI",
+    label: "Inc. VI — Indígena de comunidade tradicional",
+  },
+  {
+    id: "VII",
+    label: "Inc. VII — Migrante em situação de vulnerabilidade",
+  },
+];
+
+const CHECKBOX_GROUP_CONFIG: Record<
+  string,
+  { titulo: string; opcoes: CheckboxGroupOpcao[]; labelNenhuma?: string }
+> = {
+  condicao_medica: {
+    titulo: "O apenado se enquadra em alguma das condições médicas abaixo?",
+    opcoes: OPCOES_CONDICAO_MEDICA,
+    labelNenhuma: "Nenhuma das condições acima",
+  },
+  hiposuficiente: {
+    titulo:
+      "O apenado se enquadra em alguma hipótese de hipossuficiência? (art. 12, §2º do Decreto)",
+    opcoes: OPCOES_HIPOSUFICIENTE,
+    labelNenhuma: "Nenhuma das anteriores",
+  },
+};
+
 export function NovoCalculoQuestionarioDinamicoQuestao(
   props: NovoCalculoQuestionarioDinamicoQuestaoProps
 ) {
@@ -86,12 +165,18 @@ export function NovoCalculoQuestionarioDinamicoQuestao(
   const { push } = useRouter();
   const { goBack } = useNovoCalculo();
 
-  console.log({ questao: props.questao }, props.questao.ref_id);
-
   const booleanProps = isBooleanQuestion(props) ? props : null;
   const listProps = isListQuestion(props) ? props : null;
   const integerProps = isIntegerQuestion(props) ? props : null;
   const decimalProps = isDecimalQuestion(props) ? props : null;
+
+  // F4.3/F4.4: detectar variáveis especiais que usam multi-checkbox
+  const identificadorBase = props.questao.identificador.split(".").pop() ?? "";
+  const checkboxGroupConfig = CHECKBOX_GROUP_CONFIG[identificadorBase];
+  const crimeUuid =
+    Array.isArray(props.questao.ref_id)
+      ? props.questao.ref_id[0]
+      : props.questao.ref_id;
 
   return (
     <div className="flex flex-col w-full flex-1 max-h-full overflow-hidden">
@@ -111,17 +196,43 @@ export function NovoCalculoQuestionarioDinamicoQuestao(
         </p>
       </header>
       <main className="flex-1 overflow-x-hidden overflow-y-auto">
-        {booleanProps && (
+        {/* F4.3 / F4.4: multi-checkbox para condicao_medica e hiposuficiente */}
+        {booleanProps && checkboxGroupConfig && (
+          <NovoCalculoQuestionarioDinamicoQuestaoCheckboxGroup
+            questaoTitle={checkboxGroupConfig.titulo}
+            questaoSubtitle={booleanProps.questao.tooltip}
+            opcoes={checkboxGroupConfig.opcoes}
+            labelNenhuma={checkboxGroupConfig.labelNenhuma}
+            onChange={async (value, selectedLabels) => {
+              await booleanProps.onChange(value);
+              // F4.3/F4.4: persistir os incisos escolhidos para exibição no relatório.
+              // Sempre sincroniza esta questão: se vazio (ex.: "Nenhuma"), remove a
+              // entrada para não exibir incisos obsoletos no relatório.
+              const svc = CalculadoraService.getInstance();
+              const prev = {
+                ...(svc.getTempCalculationMetadata()?.incisos_selecionados ??
+                  {}),
+              };
+              if (selectedLabels.length > 0) {
+                prev[props.questao.identificador] = selectedLabels;
+              } else {
+                delete prev[props.questao.identificador];
+              }
+              svc.updateTempCalculationMetadataItem(
+                "incisos_selecionados",
+                prev
+              );
+            }}
+            crimeUuid={crimeUuid ?? undefined}
+          />
+        )}
+        {booleanProps && !checkboxGroupConfig && (
           <NovoCalculoQuestionarioDinamicoQuestaoBoolean
             value={booleanProps.value}
             onChange={booleanProps.onChange}
             questaoTitle={booleanProps.questao.pergunta}
             questaoSubtitle={booleanProps.questao.tooltip}
-            crimeUuid={
-              Array.isArray(booleanProps.questao.ref_id)
-                ? booleanProps.questao.ref_id[0]
-                : booleanProps.questao.ref_id
-            }
+            crimeUuid={crimeUuid ?? undefined}
           />
         )}
         {listProps && (
@@ -136,11 +247,7 @@ export function NovoCalculoQuestionarioDinamicoQuestao(
               label: opcao.valor,
               value: opcao.valor,
             }))}
-            crimeUuid={
-              Array.isArray(listProps.questao.ref_id)
-                ? listProps.questao.ref_id[0]
-                : listProps.questao.ref_id
-            }
+            crimeUuid={crimeUuid ?? undefined}
           />
         )}
         {integerProps && (
@@ -149,11 +256,7 @@ export function NovoCalculoQuestionarioDinamicoQuestao(
             onChange={integerProps.onChange}
             questaoTitle={integerProps.questao.pergunta}
             questaoSubtitle={integerProps.questao.tooltip}
-            crimeUuid={
-              Array.isArray(integerProps.questao.ref_id)
-                ? integerProps.questao.ref_id[0]
-                : integerProps.questao.ref_id
-            }
+            crimeUuid={crimeUuid ?? undefined}
           />
         )}
         {decimalProps && (
@@ -163,11 +266,7 @@ export function NovoCalculoQuestionarioDinamicoQuestao(
             questaoTitle={decimalProps.questao.pergunta}
             questaoSubtitle={decimalProps.questao.tooltip}
             allowDecimal
-            crimeUuid={
-              Array.isArray(decimalProps.questao.ref_id)
-                ? decimalProps.questao.ref_id[0]
-                : decimalProps.questao.ref_id
-            }
+            crimeUuid={crimeUuid ?? undefined}
           />
         )}
       </main>
