@@ -17,6 +17,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { ActivityIcon } from "lucide-react";
 import { useOnborda } from "onborda";
 
 export const Menu = () => {
@@ -206,6 +207,15 @@ export const MenuUserSection = () => {
             >
               <SettingsIcon />
               {t("items.settings")}
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              className="cursor-pointer"
+              onClick={() => {
+                router.push("/admin/logs");
+              }}
+            >
+              <ActivityIcon />
+              Logs do Sistema
             </DropdownMenuItem>
             <DropdownMenuSeparator />
           </DropdownMenuGroup>
