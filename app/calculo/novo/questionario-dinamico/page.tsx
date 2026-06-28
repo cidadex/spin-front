@@ -7,7 +7,7 @@ import {
   CalculationVariavelTypeEnum,
   PageStatusEnum,
 } from "@/types/enums";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { CalculadoraService } from "@/services/calculadora/CalculadoraService";
 import { CircularProgress } from "@/app/components/circular-progress";
 import {
@@ -42,6 +42,42 @@ const QuestionarioDinamicoPage = () => {
   const [pageStatus, setPageStatus] = useState<PageStatusEnum>(
     PageStatusEnum.Initial
   );
+
+  // F4.6: auto-responder hiposuficiente=false quando todos os crimes têm violência.
+  // Se não há nenhum crime sem violência, o inciso XV (patrimônio sem violência) nunca se aplica
+  // e não tem sentido perguntar sobre hipossuficiência.
+  const autoSkipHiposuficienteRef = useRef(false);
+  useEffect(() => {
+    if (pageStatus !== PageStatusEnum.Loaded) return;
+
+    const hiposuficientePendente = variaveisPendentes.find((v) =>
+      v.identificador.endsWith("hiposuficiente")
+    );
+    if (!hiposuficientePendente) {
+      autoSkipHiposuficienteRef.current = false;
+      return;
+    }
+    if (autoSkipHiposuficienteRef.current) return;
+
+    const violenciaAnswers = upperboundCrimes.flatMap((crime) =>
+      crime.variaveis_respondidas.filter((v) =>
+        v.identificador.endsWith("com_violencia_ou_grave_ameaca")
+      )
+    );
+
+    if (violenciaAnswers.length === 0) return;
+    const todosComViolencia = violenciaAnswers.every((v) => v.valor === true);
+    if (!todosComViolencia) return;
+
+    autoSkipHiposuficienteRef.current = true;
+    CalculadoraService.getInstance()
+      .updateApenadoVariavel({
+        escopo: CalculationVariavelEscopoEnum.Apenado,
+        variavelIdentificador: "hiposuficiente",
+        variavelValor: false,
+      })
+      .then(() => updateVariaveis());
+  }, [pageStatus, variaveisPendentes, upperboundCrimes, updateVariaveis]);
 
   const searchParams = useSearchParams();
   const ref_id = searchParams.get("ref_id");
